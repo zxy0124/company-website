@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Flashnote 技术支持与帮助中心 (Support & Help Center)</title>
+    <meta name="description" content="Flashnote 官方技术支持、使用指南与常见问题解答。联系邮箱：zhangmiao@arcticocean.net">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <style>
+        :root {
+            --primary: #0071e3;
+            --primary-hover: #0077ed;
+            --primary-gradient: linear-gradient(135deg, #0071e3 0%, #6366f1 100%);
+            --bg-color: #f5f5f7;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-solid: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --border-color: #d2d2d7;
+            --tag-bg: #e8f2fe;
+            --tag-text: #0071e3;
+            --success-color: #34c759;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #2997ff;
+                --primary-hover: #47a3ff;
+                --primary-gradient: linear-gradient(135deg, #2997ff 0%, #818cf8 100%);
+                --bg-color: #000000;
+                --card-bg: rgba(28, 28, 30, 0.82);
+                --card-border: rgba(255, 255, 255, 0.12);
+                --card-solid: #1c1c1e;
+                --text-main: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --text-tertiary: #636366;
+                --border-color: #38383a;
+                --tag-bg: rgba(41, 151, 255, 0.15);
+                --tag-text: #2997ff;
+                --success-color: #30d158;
+                --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 60px;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* 顶部毛玻璃导航 */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            background-color: rgba(245, 245, 247, 0.72);
+            border-bottom: 1px solid var(--card-border);
+            transition: background-color 0.3s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .navbar {
+                background-color: rgba(0, 0, 0, 0.72);
+            }
+        }
+
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .app-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .lang-btn {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            border: 1px solid transparent;
+            padding: 7px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn:hover {
+            opacity: 0.85;
+            transform: scale(0.98);
+        }
+
+        /* 主体容器 */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 20px 0;
+            transition: opacity 0.2s ease;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            text-align: center;
+            margin-bottom: 44px;
+            padding: 20px 0;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            letter-spacing: 0.2px;
+        }
+
+        .badge-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--success-color);
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 14px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 30px;
+            }
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* 核心支持联系卡片 */
+        .contact-hero-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .email-display-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--card-solid);
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+        }
+
+        .email-address {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+        }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 113, 227, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 113, 227, 0.35);
+        }
+
+        .btn-secondary {
+            background: var(--card-solid);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-color);
+            transform: translateY(-1px);
+        }
+
+        .sla-note {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 16px;
+        }
+
+        /* 3列特性卡片 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 26px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* FAQ 部分 */
+        .section-header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 50px;
+        }
+
+        .faq-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            font-size: 18px;
+            color: var(--text-tertiary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-card.open .faq-icon {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.3s ease;
+            background: var(--card-solid);
+        }
+
+        .faq-answer-inner {
+            padding: 0 24px 22px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        .faq-card.open .faq-answer {
+            max-height: 350px;
+        }
+
+        /* 隐私与安全横幅 */
+        .privacy-banner {
+            background: linear-gradient(135deg, rgba(0, 113, 227, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .privacy-banner-text h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .privacy-banner-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* 底部版权与声明 */
+        .footer {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Toast 提示 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.88);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航 -->
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="brand-link">
+                <img src="images/icon.png" alt="Flashnote Icon" class="app-icon" onerror="this.style.display='none'">
+                <span>Flashnote</span>
+            </a>
+            <div class="nav-links">
+                <a href="#faq" class="nav-link" id="navFaq">常见问题</a>
+                <a href="flashnote-privacy.html" class="nav-link" id="navPrivacy">隐私政策</a>
+                <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌐 English</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero 标头 -->
+        <section class="hero">
+            <div class="badge-status" id="heroBadge">官方支持与客户服务中心</div>
+            <h1 id="heroTitle">我们随时为您提供帮助</h1>
+            <p class="subtitle" id="heroSubtitle">
+                无论是关于离线转写、iCloud 云端同步、桌面小组件，还是其他功能疑问与改进建议，我们都会竭诚为您提供解答。
+            </p>
+        </section>
+
+        <!-- 核心联系方式卡片 -->
+        <section class="contact-hero-card">
+            <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;" id="contactCardTitle">联系技术支持</h2>
+            <p style="font-size: 15px; color: var(--text-secondary);" id="contactCardDesc">直接向开发者团队发送反馈或咨询邮件</p>
+
+            <div class="email-display-box">
+                <span class="email-address">zhangmiao@arcticocean.net</span>
+            </div>
+
+            <div class="action-group">
+                <a href="mailto:zhangmiao@arcticocean.net?subject=Flashnote%20%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E5%92%A8%E8%AF%A2%20(v1.0)&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E5%9C%A8%E4%BD%BF%E7%94%A8%20Flashnote%20%E6%97%B6%E9%81%87%E5%88%B0%E4%BA%86%E4%BB%A5%E4%B8%8B%E9%97%AE%E9%A2%98%EF%BC%9A%0A%0A%E3%80%90%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E3%80%91%3A%0A%0A%E3%80%90%E6%9C%BA%E5%9E%8B%E4%B8%8E%20iOS%20%E7%89%88%E6%9C%AC%E3%80%91%3A%0A" 
+                   class="btn btn-primary" id="sendEmailBtn">
+                    ✉️ 发送邮件咨询
+                </a>
+                <button class="btn btn-secondary" onclick="copyEmail()" id="copyEmailBtn">
+                    📋 复制邮箱地址
+                </button>
+            </div>
+
+            <div class="sla-note" id="slaNote">
+                🕒 承诺回复时效：通常在 24 ~ 48 小时内给予详尽答复
+            </div>
+        </section>
+
+        <!-- 3大特性卡片 -->
+        <section class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🎙️</div>
+                <div class="feature-title" id="feature1Title">离线文字转写</div>
+                <div class="feature-desc" id="feature1Desc">利用 iOS 原生系统算力实时识别，无需联网即可将语音转为文字，全程保护隐私。</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">☁️</div>
+                <div class="feature-title" id="feature2Title">原生私有云同步</div>
+                <div class="feature-desc" id="feature2Desc">直连苹果个人 iCloud 空间，支持断点自愈保护，绝不经由第三方服务器中转。</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title" id="feature3Title">零追踪与广告</div>
+                <div class="feature-desc" id="feature3Desc">无账号体系，不索取个人身份信息，零广告投放与用户行为打点，数据 100% 属于您。</div>
+            </div>
+        </section>
+
+        <!-- 常见问题 FAQ -->
+        <section id="faq">
+            <div class="section-header">
+                <h2 class="section-title" id="faqTitle">常见问题排查 (FAQ)</h2>
+                <span class="section-desc" id="faqDesc">点击问题查看解决方案</span>
+            </div>
+
+            <div class="faq-list">
+                <!-- Q1 -->
+                <div class="faq-card" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="q-text" id="q1">Q: 开启 iCloud 同步提示未登录或同步失败？</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner" id="a1">
+                            Flashnote 依赖您本机的 Apple 官方 iCloud 账户。请前往 iPhone 系统「设置」- 点击最上方您的「个人姓名」- 进入「iCloud」- 查看「使用 iCloud 的 App」，确认已允许 Flashnote 访问 iCloud。若仍有问题，请检查当前网络连接是否顺畅。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-card" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="q-text" id="q2">Q: 录音转文字在无网络时可以使用吗？</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner" id="a2">
+                            完全可以！Flashnote 采用 iOS 内置的语音识别离线模型（On-Device Speech Recognition）。即使开启飞行模式或在地下车库等完全无信号环境，也能流畅进行语音转文字，音频与文字绝不会上传。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-card" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="q-text" id="q3">Q: 为什么息屏时还能继续录音？</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner" id="a3">
+                            Flashnote 专门优化了后台音频通道与防误触机制，方便您在长时间会议、采访或骑行途中关闭屏幕省电收音。您可以在 App 顶部录音条随时点击停止与回放。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-card" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="q-text" id="q4">Q: 更换新手机后，如何迁移我的所有笔记？</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner" id="a4">
+                            只需确保旧设备已完成 iCloud 同步，在新设备上登录同一个 Apple ID 并下载安装 Flashnote，开启 iCloud 后系统会自动拉取所有便签、高清音频和照片视频。此外，您也可以在「设置」中使用本地「数据导出」功能备份文件。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-card" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="q-text" id="q5">Q: 桌面小组件内容更新不及时怎么办？</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner" id="a5">
+                            iOS 操作系统会根据设备的电量与使用频率智能调度小组件的刷新。轻点小组件打开 App 即可立即触发最新内容同步；您也可以长按小组件选择「编辑小组件」重新设定展示项。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 隐私政策横幅联动 -->
+        <section class="privacy-banner">
+            <div class="privacy-banner-text">
+                <h3 id="pbTitle">高度重视您的数据隐私</h3>
+                <p id="pbDesc">Flashnote 承诺绝不收集或贩卖您的笔记内容。阅读完整的合规声明了解更多。</p>
+            </div>
+            <a href="flashnote-privacy.html" class="btn btn-secondary" id="pbBtn">查看隐私政策 →</a>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="flashnote-privacy.html" id="flPrivacy">隐私政策 (Privacy Policy)</a>
+                <span>•</span>
+                <a href="index.html">Arctic Ocean 首页</a>
+                <span>•</span>
+                <a href="mailto:zhangmiao@arcticocean.net" id="flContact">联系我们</a>
+            </div>
+            <p id="footerCopyright">© 2026 Aurora Note. All rights reserved.</p>
+            <p style="margin-top: 4px; font-size: 12px; opacity: 0.7;">Flashnote for iOS 17.0+ | Designed with Apple Human Interface Guidelines</p>
+        </footer>
+    </main>
+
+    <!-- 复制提示 Toast -->
+    <div class="toast" id="copyToast">已复制邮箱地址到剪贴板！</div>
+
+    <script>
+        // 手风琴展开与收起
+        function toggleFaq(card) {
+            const isOpen = card.classList.contains('open');
+            document.querySelectorAll('.faq-card').forEach(c => c.classList.remove('open'));
+            if (!isOpen) {
+                card.classList.add('open');
+            }
+        }
+
+        // 默认展开第一个 FAQ
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstFaq = document.querySelector('.faq-card');
+            if (firstFaq) firstFaq.classList.add('open');
+        });
+
+        // 复制邮箱功能
+        function copyEmail() {
+            const email = 'zhangmiao@arcticocean.net';
+            navigator.clipboard.writeText(email).then(() => {
+                showToast(currentLang === 'zh' ? '已复制邮箱地址到剪贴板！' : 'Email copied to clipboard!');
+            }).catch(() => {
+                showToast('zhangmiao@arcticocean.net');
+            });
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('copyToast');
+            toast.innerText = text;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // 双语国际化数据
+        let currentLang = 'zh';
+        const i18n = {
+            zh: {
+                pageTitle: 'Flashnote 技术支持与帮助中心 (Support & Help Center)',
+                toggleBtn: '🌐 English',
+                navFaq: '常见问题',
+                navPrivacy: '隐私政策',
+                heroBadge: '官方支持与客户服务中心',
+                heroTitle: '我们随时为您提供帮助',
+                heroSubtitle: '无论是关于离线转写、iCloud 云端同步、桌面小组件，还是其他功能疑问与改进建议，我们都会竭诚为您提供解答。',
+                contactCardTitle: '联系技术支持',
+                contactCardDesc: '直接向开发者团队发送反馈或咨询邮件',
+                sendEmailBtn: '✉️ 发送邮件咨询',
+                sendEmailHref: 'mailto:zhangmiao@arcticocean.net?subject=Flashnote%20%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E5%92%A8%E8%AF%A2%20(v1.0)&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E5%9C%A8%E4%BD%BF%E7%94%A8%20Flashnote%20%E6%97%B6%E9%81%87%E5%88%B0%E4%BA%86%E4%BB%A5%E4%B8%8B%E9%97%AE%E9%A2%98%EF%BC%9A%0A%0A%E3%80%90%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E3%80%91%3A%0A%0A%E3%80%90%E6%9C%BA%E5%9E%8B%E4%B8%8E%20iOS%20%E7%89%88%E6%9C%AC%E3%80%91%3A%0A',
+                copyEmailBtn: '📋 复制邮箱地址',
+                slaNote: '🕒 承诺回复时效：通常在 24 ~ 48 小时内给予详尽答复',
+                feature1Title: '离线文字转写',
+                feature1Desc: '利用 iOS 原生系统算力实时识别，无需联网即可将语音转为文字，全程保护隐私。',
+                feature2Title: '原生私有云同步',
+                feature2Desc: '直连苹果个人 iCloud 空间，支持断点自愈保护，绝不经由第三方服务器中转。',
+                feature3Title: '零追踪与广告',
+                feature3Desc: '无账号体系，不索取个人身份信息，零广告投放与用户行为打点，数据 100% 属于您。',
+                faqTitle: '常见问题排查 (FAQ)',
+                faqDesc: '点击问题查看解决方案',
+                q1: 'Q: 开启 iCloud 同步提示未登录或同步失败？',
+                a1: 'Flashnote 依赖您本机的 Apple 官方 iCloud 账户。请前往 iPhone 系统「设置」- 点击最上方您的「个人姓名」- 进入「iCloud」- 查看「使用 iCloud 的 App」，确认已允许 Flashnote 访问 iCloud。若仍有问题，请检查当前网络连接是否顺畅。',
+                q2: 'Q: 录音转文字在无网络时可以使用吗？',
+                a2: '完全可以！Flashnote 采用 iOS 内置的语音识别离线模型（On-Device Speech Recognition）。即使开启飞行模式或在地下车库等完全无信号环境，也能流畅进行语音转文字，音频与文字绝不会上传。',
+                q3: 'Q: 为什么息屏时还能继续录音？',
+                a3: 'Flashnote 专门优化了后台音频通道与防误触机制，方便您在长时间会议、采访或骑行途中关闭屏幕省电收音。您可以在 App 顶部录音条随时点击停止与回放。',
+                q4: 'Q: 更换新手机后，如何迁移我的所有笔记？',
+                a4: '只需确保旧设备已完成 iCloud 同步，在新设备上登录同一个 Apple ID 并下载安装 Flashnote，开启 iCloud 后系统会自动拉取所有便签、高清音频和照片视频。此外，您也可以在「设置」中使用本地「数据导出」功能备份文件。',
+                q5: 'Q: 桌面小组件内容更新不及时怎么办？',
+                a5: 'iOS 操作系统会根据设备的电量与使用频率智能调度小组件的刷新。轻点小组件打开 App 即可立即触发最新内容同步；您也可以长按小组件选择「编辑小组件」重新设定展示项。',
+                pbTitle: '高度重视您的数据隐私',
+                pbDesc: 'Flashnote 承诺绝不收集或贩卖您的笔记内容。阅读完整的合规声明了解更多。',
+                pbBtn: '查看隐私政策 →',
+                flPrivacy: '隐私政策 (Privacy Policy)',
+                flContact: '联系我们',
+                footerCopyright: '© 2026 Aurora Note. All rights reserved.'
+            },
+            en: {
+                pageTitle: 'Flashnote Support & Help Center',
+                toggleBtn: '🌐 简体中文',
+                navFaq: 'FAQ',
+                navPrivacy: 'Privacy Policy',
+                heroBadge: 'Official Support & Customer Care',
+                heroTitle: 'How can we help you?',
+                heroSubtitle: 'Got questions about offline transcription, iCloud sync, widgets, or feature suggestions? We are always here to assist you.',
+                contactCardTitle: 'Contact Technical Support',
+                contactCardDesc: 'Send feedback or inquiries directly to our developer team',
+                sendEmailBtn: '✉️ Send Inquiry Email',
+                sendEmailHref: 'mailto:zhangmiao@arcticocean.net?subject=Flashnote%20Support%20Request%20(v1.0)&body=Hello%20Flashnote%20Team%2C%0A%0AI%20am%20experiencing%20an%20issue%20with%20Flashnote%3A%0A%0A%5BDescription%20of%20Issue%5D%3A%0A%0A%5BDevice%20Model%20%26%20iOS%20Version%5D%3A%0A',
+                copyEmailBtn: '📋 Copy Email Address',
+                slaNote: '🕒 Response SLA: Usually answered within 24 to 48 business hours',
+                feature1Title: 'On-Device Dictation',
+                feature1Desc: 'Real-time offline speech-to-text powered by iOS native neural engine. Fully private, zero cloud upload.',
+                feature2Title: 'Native iCloud Sync',
+                feature2Desc: 'Direct end-to-end sync with your private Apple iCloud Drive container with auto-recovery protection.',
+                feature3Title: 'Zero Tracking & Ads',
+                feature3Desc: 'No account registration, no IDFA tracking, and no third-party analytic SDKs. Your data is 100% yours.',
+                faqTitle: 'Frequently Asked Questions (FAQ)',
+                faqDesc: 'Tap a question to view the solution',
+                q1: 'Q: iCloud sync error or says not signed in?',
+                a1: 'Flashnote leverages your official Apple iCloud account. Please go to iPhone "Settings" -> tap your Apple ID profile at the top -> "iCloud" -> "Apps using iCloud", and verify Flashnote toggle is ON.',
+                q2: 'Q: Does voice transcription work without Internet?',
+                a2: 'Yes, completely! Flashnote uses iOS on-device Speech framework models. It performs accurate real-time transcription even in Airplane Mode or offline basements without sending audio data outside.',
+                q3: 'Q: Why does audio recording continue when screen is locked?',
+                a3: 'Flashnote utilizes optimized background audio sessions and proximity touch guards, allowing long interviews or lectures while preserving battery with the screen turned off.',
+                q4: 'Q: How do I transfer notes to a new iPhone?',
+                a4: 'Ensure iCloud sync is enabled on your previous device. Then install Flashnote on your new device signed in with the same Apple ID; your memos, audio, and photos will seamlessly sync. You can also export local archives anytime in Settings.',
+                q5: 'Q: Why does the Home Screen Widget take time to refresh?',
+                a5: 'iOS dynamically schedules widget updates according to system battery and usage habits. Tapping the widget to open Flashnote immediately updates timeline data.',
+                pbTitle: 'We Value Your Privacy',
+                pbDesc: 'Flashnote never sells or monitors your notes. Read our full compliance declaration.',
+                pbBtn: 'View Privacy Policy →',
+                flPrivacy: 'Privacy Policy',
+                flContact: 'Contact Us',
+                footerCopyright: '© 2026 Aurora Note. All rights reserved.'
+            }
+        };
+
+        // 安全设置文本，避免 null 报错
+        function safeSetText(id, text) {
+            const el = document.getElementById(id);
+            if (el && text !== undefined) {
+                el.innerText = text;
+            }
+        }
+
+        function safeSetAttr(id, attr, val) {
+            const el = document.getElementById(id);
+            if (el && val !== undefined) {
+                el.setAttribute(attr, val);
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            applyLanguage(currentLang);
+        }
+
+        function applyLanguage(lang) {
+            const data = i18n[lang];
+            if (!data) return;
+
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+            safeSetText('pageTitle', data.pageTitle);
+            safeSetText('langToggleBtn', data.toggleBtn);
+            safeSetText('navFaq', data.navFaq);
+            safeSetText('navPrivacy', data.navPrivacy);
+            safeSetText('heroBadge', data.heroBadge);
+            safeSetText('heroTitle', data.heroTitle);
+            safeSetText('heroSubtitle', data.heroSubtitle);
+            safeSetText('contactCardTitle', data.contactCardTitle);
+            safeSetText('contactCardDesc', data.contactCardDesc);
+            safeSetText('sendEmailBtn', data.sendEmailBtn);
+            safeSetAttr('sendEmailBtn', 'href', data.sendEmailHref);
+            safeSetText('copyEmailBtn', data.copyEmailBtn);
+            safeSetText('slaNote', data.slaNote);
+
+            safeSetText('feature1Title', data.feature1Title);
+            safeSetText('feature1Desc', data.feature1Desc);
+            safeSetText('feature2Title', data.feature2Title);
+            safeSetText('feature2Desc', data.feature2Desc);
+            safeSetText('feature3Title', data.feature3Title);
+            safeSetText('feature3Desc', data.feature3Desc);
+
+            safeSetText('faqTitle', data.faqTitle);
+            safeSetText('faqDesc', data.faqDesc);
+            safeSetText('q1', data.q1);
+            safeSetText('a1', data.a1);
+            safeSetText('q2', data.q2);
+            safeSetText('a2', data.a2);
+            safeSetText('q3', data.q3);
+            safeSetText('a3', data.a3);
+            safeSetText('q4', data.q4);
+            safeSetText('a4', data.a4);
+            safeSetText('q5', data.q5);
+            safeSetText('a5', data.a5);
+
+            safeSetText('pbTitle', data.pbTitle);
+            safeSetText('pbDesc', data.pbDesc);
+            safeSetText('pbBtn', data.pbBtn);
+            safeSetText('flPrivacy', data.flPrivacy);
+            safeSetText('flContact', data.flContact);
+            safeSetText('footerCopyright', data.footerCopyright);
+        }
+    </script>
+</body>
+
+</html>
